@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard de Veículos de Mídia | ES/RJ</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar card">
+        <div class="title-wrap">
+          <h1>Visualizador Geográfico e Analítico de Veículos de Mídia</h1>
+          <p>Rádios e TVs • Cobertura municipal ES/RJ • Operação 100% local em navegador</p>
+        </div>
+        <div class="upload-wrap">
+          <label class="btn btn-primary" for="excelInput">Carregar planilha (.xlsx)</label>
+          <input id="excelInput" type="file" accept=".xlsx,.xls" />
+          <button id="reloadBtn" class="btn">Carregar nova planilha</button>
+          <button id="clearFiltersBtn" class="btn btn-ghost">Limpar filtros</button>
+        </div>
+      </header>
+
+      <section id="intro" class="card intro">
+        <h2>Como usar</h2>
+        <ol>
+          <li>Clique em <strong>Carregar planilha</strong> e selecione o Excel com abas <strong>Rádios</strong> e <strong>TVs</strong>.</li>
+          <li>Use os filtros para refinar por estado, tipo de veículo, cooperativa, veículo e município.</li>
+          <li>Veja KPIs, mapa interativo, tabela e o resumo analítico com rankings e participação por cooperativa.</li>
+        </ol>
+      </section>
+
+      <section id="statusBar" class="status"></section>
+
+      <section class="card filters">
+        <div class="filter-row">
+          <label>Estado
+            <select id="filterUf"><option value="">Todos</option></select>
+          </label>
+          <label>Tipo de veículo
+            <select id="filterTipo"><option value="">Todos</option><option value="radio">Rádio</option><option value="tv">TV</option></select>
+          </label>
+          <label>Cooperativa
+            <select id="filterCoop"><option value="">Todas</option></select>
+          </label>
+          <label>Veículo
+            <select id="filterVeiculo"><option value="">Todos</option></select>
+          </label>
+          <label>Município
+            <input id="filterMunicipio" type="text" placeholder="Buscar município" />
+          </label>
+        </div>
+      </section>
+
+      <section id="kpiGrid" class="kpi-grid"></section>
+
+      <section class="map-table-grid">
+        <article class="card map-card">
+          <div class="section-header">
+            <h2>Mapa Municipal</h2>
+            <div class="legend">
+              <span><i class="lg lg-base"></i> Base</span>
+              <span><i class="lg lg-cob"></i> Cobertura</span>
+              <span><i class="lg lg-sede"></i> Sede</span>
+            </div>
+          </div>
+          <div id="map"></div>
+        </article>
+
+        <article class="card table-card">
+          <div class="section-header">
+            <h2>Detalhamento Municipal</h2>
+            <button id="exportCsvBtn" class="btn">Exportar CSV</button>
+          </div>
+          <div class="table-tools">
+            <input id="tableSearch" type="text" placeholder="Buscar na tabela" />
+          </div>
+          <div class="table-wrap">
+            <table id="detailsTable">
+              <thead></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </article>
+      </section>
+
+      <section class="card analytics">
+        <h2>Resumo Analítico do Veículo</h2>
+        <div id="analyticsContent" class="analytics-grid"></div>
+      </section>
+    </div>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+    <script src="app.js"></script>
+  </body>
+</html>
